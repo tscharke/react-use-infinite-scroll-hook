@@ -1,0 +1,10 @@
+/.idea/
+/node_modules/
+/src/
+.DS_Store
+*.json
+*.mjs
+*.yml
+.gitignore
+.npmignore
+.prettier*

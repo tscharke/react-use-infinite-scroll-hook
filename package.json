@@ -1,0 +1,50 @@
+{
+  "name": "react-use-infinite-scroll-hook",
+  "version": "0.0.1",
+  "description": "React Hook to call an action if an intersected element was reached",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "test": "vitest",
+    "lint": "eslint src/*",
+    "build": "tsc"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tscharke/react-use-infinite-scroll-hook"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "intersection",
+    "infinity",
+    "scroll"
+  ],
+  "author": "Thomas Scharke <thomas.scharke@gmail.com>",
+  "license": "MIT",
+  "packageManager": "pnpm@9.1.4+sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f1318c1aa6a1ed1aeb3c4f032fcdf4ba63cc69c4fe6d634279176b5358727d8f2cc1e65b65f43ce2f8bfb0",
+  "devDependencies": {
+    "@eslint/compat": "^1.0.3",
+    "@eslint/js": "^9.4.0",
+    "@testing-library/react": "^15.0.7",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.3.3",
+    "@vitejs/plugin-react": "^4.3.0",
+    "eslint": "9.x",
+    "eslint-plugin-react": "^7.34.2",
+    "globals": "^15.3.0",
+    "jsdom": "^24.1.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.11.0",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "useintersection": "https://github.com/tscharke/useIntersection/releases/download/v1.0.0/useintersection-1.0.0.tar.gz"
+  }
+}

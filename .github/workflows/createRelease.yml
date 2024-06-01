@@ -1,0 +1,85 @@
+name: Create and publish new release
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  create-and-build-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Get the version out of the tag
+        id: get_version
+        run: echo "TAGGED_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Checkout project sources
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Parse name of project
+        id: project_info
+        uses: jaywcjlove/github-action-package@main
+
+      - name: Install all dependencies with PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+
+      - name: Test and build the project
+        run: |
+          # Test project
+          pnpm run test
+          # Build project
+          pnpm run build
+
+      - name: Set new version in `package.json`
+        uses: jaywcjlove/github-action-package@main
+        with:
+          version: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
+
+      - name: Commit changes of `package.json`
+        uses: Andro999b/push@v1.3
+        with:
+          message: 'Version ${{ steps.get_version.outputs.TAGGED_VERSION }}'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'main'
+          force: true
+
+      - name: Create new artifact
+        uses: a7ul/tar-action@v1.1.0
+        with:
+          command: c
+          files: |
+            ./lib
+            ./package.json
+          outPath: ./${{ steps.project_info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+
+      - name: Release artifact/project
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: ./${{ steps.project_info.outputs.name }}-${{ steps.get_version.outputs.TAGGED_VERSION }}.tar.gz
+          name: "${{ steps.get_version.outputs.TAGGED_VERSION }}"
+
+      - name: Preparing directory to publish
+        shell: bash
+        run: |
+          # Creating a new directory and copy all relevante files into it, because on GitHubs server
+          # we've no permissions to copy the package.json into an exiting directory
+          mkdir -p ./lib_tmp
+          cp -R ./lib/* ./lib_tmp 
+          cp ./package.json ./lib_tmp
+          cp ./README.md ./lib_tmp
+          mv ./lib ./lib_old
+          mv ./lib_tmp ./lib
+
+      - name: Publishing package
+        uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm publish ./lib --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

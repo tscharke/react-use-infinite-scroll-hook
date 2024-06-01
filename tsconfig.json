@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "declaration": true,
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.tests.{js,jsx,ts,tsx}",
+    "*.tsbuildinfo"
+  ],
+  "include": [
+    "src"
+  ]
+}
