@@ -1,4 +1,4 @@
-![Create Release Workflow](https://github.com/tscharke/react-infinite-scroll-hook/actions/workflows/createRelease.yml/badge.svg?push=tags) ![Release](https://img.shields.io/github/v/release/tscharke/react-infinite-scroll-hook?display_name=release&label=Release)
+![Create Release Workflow](https://github.com/tscharke/react-use-infinite-scroll-hook/actions/workflows/createRelease.yml/badge.svg?push=tags) ![Release](https://img.shields.io/github/v/release/tscharke/react-use-infinite-scroll-hook?display_name=release&label=Release)
 
 # React useInfiniteScroll-Hook
 
@@ -15,7 +15,7 @@ React Hook to call an action if an intersected element was reached
 pnpm install react-use-infinite-scroll-hook
 
 # Or the latest tarball from this repository
-pnpm install https://github.com/tscharke/react-use-infinite-scroll-hook/releases/download/v1.0.0/react-use-infinite-scroll-hook-1.0.0.tar.gz
+pnpm install https://github.com/tscharke/react-use-infinite-scroll-hook/releases/download/v1.0.1/react-use-infinite-scroll-hook-1.0.1.tar.gz
 ```
 
 ## Usage
@@ -34,11 +34,7 @@ export const MyComponent = ({ data }) => {
 
 	return (
 		<section>
-			{
-				data.map(({ id, title }) => (
-					<div key={id}>${title}</div>
-				))
-			}
+			{data.map(({ id, title }) => <div key={id}>${title}</div>)}
 			<span ref={scrollElementRef} style={{ visibility: 'hidden', width: 0, height: 0 }} />
 		</section>
 	)
