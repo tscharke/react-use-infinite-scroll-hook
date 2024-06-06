@@ -1,6 +1,6 @@
 {
   "name": "react-use-infinite-scroll-hook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Hook to call an action if an intersected element was reached",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
